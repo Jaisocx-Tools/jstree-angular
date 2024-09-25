@@ -46,4 +46,7 @@ jobs:
           cd jaisocx-tree
           npm install
           npm run build
-          ls -la /home/runner/work/jstree-angular/jstree-angular/jaisocx-tree/dist/jaisocx-tree/browser
+          cd /home/runner/work/jstree-angular/jstree-angular/jaisocx-tree/dist/jaisocx-tree/browser
+          pwd
+          ls -la
+          
