@@ -43,6 +43,7 @@ jobs:
         uses: actions/deploy-pages@v4
       - name: Install dependencies
         run: |
+          cd jaisocx-tree
           npm install
           npm run build
       # - name: Npm build to gh-pages
