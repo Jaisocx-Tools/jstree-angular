@@ -1,0 +1,42 @@
+# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+
+# Compiled output
+/jaisocx-tree/dist
+/jaisocx-tree/tmp
+/jaisocx-tree/out-tsc
+/jaisocx-tree/bazel-out
+
+# Node
+/jaisocx-tree/node_modules
+/jaisocx-tree/npm-debug.log
+/jaisocx-tree/yarn-error.log
+
+# IDEs and editors
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# Miscellaneous
+/jaisocx-tree/.angular/cache
+/jaisocx-tree/.sass-cache/
+/jaisocx-tree/connect.lock
+/jaisocx-tree/coverage
+/jaisocx-tree/libpeerconnection.log
+/jaisocx-tree/testem.log
+/jaisocx-tree/typings
+
+# System files
+.DS_Store
+Thumbs.db
