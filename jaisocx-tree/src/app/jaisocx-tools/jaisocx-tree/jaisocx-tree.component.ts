@@ -41,7 +41,7 @@ export class JaisocxTreeComponent implements OnInit {
     .then(response => response.json())
     .then(json => {
         this.render(json);
-        this.attachEvents();
+        this.addEventListeners();
     });
   }
 
@@ -123,92 +123,91 @@ export class JaisocxTreeComponent implements OnInit {
     }
   }
 
-  attachEvents() {
-    const toggleButtonHandler = (event: Event) => {
-      /* @ts-ignore; */
-        const toggleButton: HTMLElement = event.target.closest('.toggle-button');
-        if (
-          /* @ts-ignore; */
-          !event.target.classList.contains('toggle-button') && 
-            (toggleButton === null)
-        ) {
-            return;
-        }
-
+  toggleButtonHandler(event: Event) {
+    /* @ts-ignore; */
+    const toggleButton = event.target.closest('.toggle-button');
+    if (
         /* @ts-ignore; */
-        if (toggleButton.classList.contains(this.CLASS_WITHOUT_SUBTREE)) {
-            return;
-        }
+        !event.target.classList.contains('toggle-button') && 
+        (toggleButton === null)
+    ) {
+        return;
+    }
 
-        event.stopPropagation();
-        event.preventDefault();
+    if (toggleButton.classList.contains(this.CLASS_WITHOUT_SUBTREE)) {
+        return;
+    }
 
-        /* @ts-ignore; */
-        let subtreeContainer = toggleButton.closest('li').getElementsByTagName('ul')[0];
+    event.preventDefault();
 
-        /* @ts-ignore; */
-        if(toggleButton.classList.contains(this.CLASS_CLOSED)) {
-            toggleButton.classList.remove(this.CLASS_CLOSED);
-            toggleButton.classList.add(this.CLASS_OPENED);
-            subtreeContainer.style.display = 'block';
-        }else if(toggleButton.classList.contains(this.CLASS_OPENED)) {
-            toggleButton.classList.remove(this.CLASS_OPENED);
-            toggleButton.classList.add(this.CLASS_CLOSED);
-            subtreeContainer.style.display = 'none';
-        }
-    };
+    let subtreeContainer = toggleButton.closest('li').getElementsByTagName('ul')[0];
 
-    const documentBaseEventHandler = (event: Event, handler: CallableFunction) => {
+    if(toggleButton.classList.contains(this.CLASS_CLOSED)) {
+        toggleButton.classList.remove(this.CLASS_CLOSED);
+        toggleButton.classList.add(this.CLASS_OPENED);
+        subtreeContainer.style.display = 'block';
+    }else if(toggleButton.classList.contains(this.CLASS_OPENED)) {
+        toggleButton.classList.remove(this.CLASS_OPENED);
+        toggleButton.classList.add(this.CLASS_CLOSED);
+        subtreeContainer.style.display = 'none';
+    }
+  }
+
+  documentBaseEventHandler(event: Event, handler: CallableFunction) {
+    if (this.debug === true) {
+        console.log('js tree doc click event handler');
+    }
+
+    let currentElement: any = event.target;
+    /* @ts-ignore; */
+    if (!currentElement.classList.contains('tree-element-label')) {
         if (this.debug === true) {
-            console.log('js tree doc click event handler');
+            console.log('tree elem click handler: is not a tree elem label', currentElement);
         }
+        return;
+    }
 
-        let currentElement: EventTarget|null = event.target;
+    /* @ts-ignore; */
+    const treeElem = currentElement.closest('.tree-element');
+    if (!treeElem) {
+        if (this.debug === true) {
+            console.log('tree elem click handler: is not a predefined tree elems structure');
+        }
+        return;
+    }
+
+    const node = JSON.parse(treeElem.dataset.json);
+
+    if (this.debug === true) {
         /* @ts-ignore; */
-        if (!currentElement.classList.contains('tree-element-label')) {
-            if (this.debug === true) {
-                console.log('tree elem clicked: is not a tree elem label', currentElement);
-            }
-            return;
-        }
+        console.log(`tree elem : ${event.name}`, treeElem, node);
+    }
 
-        while(currentElement) {      
-            /* @ts-ignore; */          
-            if (currentElement.classList.contains('tree-element')) {
-                /* @ts-ignore; */
-                const node = JSON.parse(currentElement.dataset.json);
+    if (node.href && node.href.substring(0, 'javascript:'.length) !== 'javascript:') {
+        return;
+    }
 
-                if (this.debug === true) {
-                    /* @ts-ignore; */
-                    console.log(`tree elem : ${event.name}`, currentElement, node);
-                }
+    event.preventDefault();
 
-                if (node.href && node.href.substring(0, 'javascript:'.length) !== 'javascript:') {
-                  return;
-                }
+    handler(event, node);
+  }
 
-                event.preventDefault();
-                event.stopPropagation();
-
-                handler(event, node);
-                break;
-            }
-
-            /* @ts-ignore; */
-            currentElement = currentElement.parentElement;
-        }
-    };
-
-    const documentClickEventHandler = (event: Event) => {
-        documentBaseEventHandler(event, this.nodeClickEventHandler.bind(this));
-    };
-
-    this.treeElem.nativeElement.addEventListener('click', toggleButtonHandler);
-    this.treeElem.nativeElement.addEventListener('click', documentClickEventHandler);
+  documentClickEventHandler(event: Event) {
+    this.documentBaseEventHandler(event, this.nodeClickEventHandler.bind(this));
   }
 
   nodeClickEventHandler(event: Event, node: any) {
     const eventPayload: any = {event, node};
     this.treeElemClick.emit(eventPayload);
   }
+
+  addEventListeners() {
+    this.treeElem.nativeElement.addEventListener('click', this.toggleButtonHandler.bind(this));
+
+    if (typeof(this.nodeClickEventHandler) === 'function') {
+      this.treeElem.nativeElement.addEventListener('click', this.documentClickEventHandler.bind(this));
+    }
+  }   
 }
+
+
