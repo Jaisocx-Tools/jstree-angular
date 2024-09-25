@@ -1,0 +1,46 @@
+[
+    {
+      "title": "node1",
+      "opened": true,
+      "text": "<h3>Main tree elem</h3>",
+      "subtree": [
+        {
+          "title": "node11",
+          "text": "<h3>Hello World!</h3>"
+        },
+        {
+          "title": "node12",
+          "opened": false,
+          "subtree": [
+            {
+              "title": "node121",
+              "text": "<h3>Hello World!</h3>"
+            },
+            {
+              "title": "A Link to Google", 
+              "href": "https://google.com/"
+            }
+          ]
+        },
+        {
+          "title": "call js function 1", 
+          "href": "javascript: void(0);",
+          "text": "<h3>Hello World!</h3><p style=\"color:#26d;\">Have fun with styling and using JSTree tool.</p>"
+        },
+        {
+          "title": "call js function 2", 
+          "href": "javascript: void(0);",
+          "text": "<h3>Hello World!</h3><p style=\"color:#d83;\">You can edit code easily, JSTree class is lightweight.</p>"
+        },
+        {
+          "title": "call js function 3", 
+          "href": "javascript: void(0);",
+          "text": "<h3>Hello World!</h3><p style=\"color:#00bb00;\">Have a nice day.</p>"
+        }
+      ]
+    },
+    {
+      "title": "node2",
+      "text": "<h3>Hello World!</h3>"
+    }
+]

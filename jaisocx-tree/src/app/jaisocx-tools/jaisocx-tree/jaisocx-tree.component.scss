@@ -1,0 +1,182 @@
+@import './../scss/jaisocx-tree-variables.css';
+
+.tree {
+    background-color: var(--background-color--tree);
+}
+
+.tree * {
+    position: relative;
+
+    padding: 0;
+    margin: 0;
+
+    box-sizing: border-box;
+
+    border: 0px solid #fff;
+}
+
+
+.tree ul {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    list-style-type: none;
+}
+
+.tree ul li {
+    overflow: visible;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.tree ul li .tree-element {
+    height: var(--size--tree-element);
+    min-height: var(--size--tree-element);
+    width: auto;
+
+    font-size: var(--size--tree-element);
+    line-height: var(--size--tree-element);
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+    margin-bottom: 4px;
+}
+
+.tree ul li > ul {
+    margin-left: 22px;
+    border: var(--border--subtree-parent);
+}
+
+.tree .tree-element-label {
+    border: var(--border--tree-element);
+    background-color: inherit;
+    font-family: 'Open Sans';
+    font-size: 80%;
+    line-height: 95%;
+    min-height: 100%;
+    height: 100%;
+    overflow-y: hidden;
+    padding-left: 2px;
+    padding-right: 20px;
+    text-decoration: none;
+    color: var(--text-color--dark);
+}
+.tree .tree-element-label:hover {
+    color: var(--text-color--hover);
+}
+
+.tree .toggle-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    border: var(--border--tree-element-toggle-button);
+    height: 100%;
+    width: var(--size--tree-element);
+    margin: auto;
+}
+
+.tree .toggle-button > span {
+    display: none;
+    height: var(--toggle-button-size);
+    width: var(--toggle-button-size);
+
+    font-size: inherit;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-clip: content-box;
+    background-attachment: local;
+}
+
+.tree .toggle-button > span.opened {
+    background-image: var(--toggle-button-opened--image-url);
+    transform: rotate(180deg);
+}
+.tree .toggle-button > span.closed {
+    background-image: var(--toggle-button-opened--image-url);
+    transform: rotate(90deg);
+}
+.tree .toggle-button > span.without-subtree {
+    background-image: var(--toggle-button-without-subtree--image-url);
+    color: crimson !important;
+}
+
+.tree .toggle-button > span.animated {
+    display: none;
+}
+
+.tree .toggle-with-subtree-closed span.opened {
+    display: none;
+}
+
+.tree .toggle-with-subtree-closed span.closed {
+    display: block;
+}
+
+.tree .toggle-with-subtree-closed span.without-subtree {
+    display: none;
+}
+
+
+.tree .toggle-with-subtree-opened span.opened {
+    display: block;
+}
+
+.tree .toggle-with-subtree-opened span.closed {
+    display: none;
+}
+
+.tree .toggle-with-subtree-opened span.without-subtree {
+    display: none;
+}
+
+
+.tree .toggle-without-subtree  span.opened {
+    display: none;
+}
+
+.tree .toggle-without-subtree span.closed {
+    display: none;
+}
+
+.tree .toggle-without-subtree span.without-subtree {
+    display: block;
+}
+
+
+.context-menu-container{
+    display: none;
+    position: fixed;
+    background-color: white;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    padding: 20px;
+    box-shadow: 10px 10px 5px grey;
+}
+
+.context-menu-container ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.context-menu-container li{
+    border-bottom: 1px solid #ddd;
+    margin-top: 12px;
+    cursor: pointer;
+}
+.context-menu-container li:first-of-type{
+    margin-top: 0px;
+}
+
