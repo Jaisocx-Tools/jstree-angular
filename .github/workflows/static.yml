@@ -46,11 +46,4 @@ jobs:
           cd jaisocx-tree
           npm install
           npm run build
-      # - name: Npm build to gh-pages
-        # You may pin to the exact commit or the version.
-        # uses: diy-pwa/npm-build-2-gh-pages@63698f32efd941f31242b5017e0ba3d6e600f732
-        # uses: diy-pwa/npm-build-2-gh-pages@v1.11
-        # with:
-          # Set a generated GITHUB_TOKEN for pushing to the remote branch.
-          # github_token: # optional
           
