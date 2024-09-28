@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'app-jaisocx-tree',
+  selector: 'jaisocx-tree',
   standalone: true,
   imports: [],
   templateUrl: './jaisocx-tree.component.html',
@@ -203,10 +203,7 @@ export class JaisocxTreeComponent implements OnInit {
 
   addEventListeners() {
     this.treeElem.nativeElement.addEventListener('click', this.toggleButtonHandler.bind(this));
-
-    if (typeof(this.nodeClickEventHandler) === 'function') {
-      this.treeElem.nativeElement.addEventListener('click', this.documentClickEventHandler.bind(this));
-    }
+    this.treeElem.nativeElement.addEventListener('click', this.documentClickEventHandler.bind(this));
   }   
 }
 
